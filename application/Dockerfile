@@ -1,6 +1,6 @@
 FROM php:8.2-fpm-alpine
 
-WORKDIR /var/www/cache
+WORKDIR /var/cache
 
 RUN apk --no-cache add \
     $PHPIZE_DEPS \
@@ -17,7 +17,7 @@ COPY --from=composer:2.7 /usr/bin/composer /usr/local/bin/composer
 
 COPY composer.json composer.lock ./
 
-RUN composer install --no-scripts --prefer-dist --optimize-autoloader
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts
 
 WORKDIR /var/www
 

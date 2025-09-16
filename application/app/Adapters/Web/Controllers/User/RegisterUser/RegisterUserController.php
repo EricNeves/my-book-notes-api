@@ -13,7 +13,7 @@ class RegisterUserController
     public function handle(RegisterUserRequest $request): JsonResponse
     {
         return response()->json([
-            'data' => []
+            'data' => $request->validated()
         ]);
     }
 }
