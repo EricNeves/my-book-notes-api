@@ -7,13 +7,14 @@ use App\Domain\ValueObjects\Email;
 class UserEntity implements \JsonSerializable
 {
     public function __construct(
-        public readonly string $name,
-        public readonly Email $email,
-        public readonly string $password,
-        public readonly ?string $id = null,
+        public readonly string              $name,
+        public readonly Email               $email,
+        public readonly string              $password,
+        public readonly ?string             $id = null,
         public readonly ?\DateTimeImmutable $created_at = null,
         public readonly ?\DateTimeImmutable $updated_at = null,
-    ) {
+    )
+    {
     }
 
     public function jsonSerialize(): array
@@ -23,6 +24,12 @@ class UserEntity implements \JsonSerializable
 
     public function toArray(): array
     {
-        return $this->jsonSerialize();
+        return [
+            'id'         => $this->id,
+            'name'       => $this->name,
+            'email'      => $this->email,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

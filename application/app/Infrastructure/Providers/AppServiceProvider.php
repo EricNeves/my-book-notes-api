@@ -3,7 +3,9 @@
 namespace App\Infrastructure\Providers;
 
 use App\Adapters\Gateways\User\UserGatewayImplementation;
+use App\Adapters\Services\PasswordEncrypterServiceImplementation;
 use App\Domain\Ports\UserGatewayPort;
+use App\Domain\Services\PasswordEncrypterService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,5 +17,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->bind(UserGatewayPort::class, UserGatewayImplementation::class);
+        $this->app->bind(PasswordEncrypterService::class, PasswordEncrypterServiceImplementation::class);
     }
 }
