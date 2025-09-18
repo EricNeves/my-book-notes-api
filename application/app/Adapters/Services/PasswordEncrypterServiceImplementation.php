@@ -11,4 +11,9 @@ class PasswordEncrypterServiceImplementation implements PasswordEncrypterService
     {
         return Hash::make($password);
     }
+
+    public function compare(string $password, string $hashedPassword): bool
+    {
+        return Hash::check($password, $hashedPassword);
+    }
 }
