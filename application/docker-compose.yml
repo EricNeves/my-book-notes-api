@@ -5,6 +5,10 @@ services:
         volumes:
             - ./:/var/www
         restart: always
+        depends_on:
+            postgres:
+                condition: service_healthy
+
     nginx_api:
         container_name: nginx_api
         build:
@@ -13,3 +17,23 @@ services:
         ports:
             - '3030:3030'
         restart: always
+
+    postgres:
+        container_name: postgres
+        image: postgres:17
+        ports:
+            - '5432:5432'
+        volumes:
+            - pg_data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: 'admin'
+            POSTGRES_PASSWORD: 'admin'
+            POSTGRES_DB: 'mbn_db'
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U admin -d mbn_db"]
+            interval: 5s
+            timeout: 5s
+            retries: 3
+
+volumes:
+    pg_data:
